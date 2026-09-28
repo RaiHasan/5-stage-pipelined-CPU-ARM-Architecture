@@ -1,0 +1,23 @@
+
+`timescale 1ns/10ps
+module mux_2_1 (out, in1, in2, sel);
+	logic input in1, in2, sel;
+	logic output out;
+	
+	wire selInversed;
+	
+	wire in2DataEnabled;
+	
+	wire in1DataEnabled;
+	
+	
+	
+	not #(0.05) gateOne (selInversed, sel);
+	
+	and #(0.05) gateTwo (in2DataEnabled, selInversed, in2);
+	
+	and #(0.05) gateThree (in1DataEnabled, sel, in1);
+	
+	or #(0.05) gateFour (out, in1DataEnabled, in2DataEnabled);
+	
+endmodule 

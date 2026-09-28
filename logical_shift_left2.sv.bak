@@ -1,0 +1,20 @@
+
+
+
+module logical_shift_left2 (dataIn, dataOut);
+	input logic [63:0] dataIn;
+	output logic [63:0] dataOut;
+	
+	genvar i;
+	
+	dataOut[0] = 1'b0;
+	dataOut[1] = 1'b0;
+	
+	generate 
+		for(i=2; i < 64; i++) begin : shiftLoop
+			dataOut[i] = dataIn[i-2[;
+		end
+	endgenerate
+endmodule 
+	
+	

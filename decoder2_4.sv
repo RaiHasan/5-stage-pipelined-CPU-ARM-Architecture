@@ -1,0 +1,39 @@
+`timescale 1ns/10ps
+
+// 2_4 decoder which selects which output is active if dataIn is true
+module decoder2_4 (dataInput, dataOutput, selectors);
+	input logic dataInput;
+	input logic [1:0] selectors;
+	output logic [3:0] dataOutput;
+	
+	wire invertedSelector1;
+	wire invertedSelector0;
+	
+	wire [3:0] decoderOut;
+	
+	not #(0.05) gate1 (invertedSelector0, selectors[0]);
+	
+	not #(0.05) gate2 (invertedSelector1, selectors[1]);
+	
+	and #(0.05) gate3 (decoderOut[0], invertedSelector1, invertedSelector0);
+	
+	and #(0.05) gate4 (decoderOut[1], invertedSelector1, selectors[0]);
+	
+	and #(0.05) gate5 (decoderOut[2], selectors[1], invertedSelector0);
+	
+	and #(0.05) gate6 (decoderOut[3], selectors[1], selectors[0]);
+	
+	genvar i;
+	
+	generate 
+		for(i = 0; i < 4; i++) begin : loop
+			and #(0.05) gate7 (dataOutput[i], decoderOut[i], dataInput);
+		end
+	endgenerate 
+endmodule 
+
+
+	
+	
+	
+	

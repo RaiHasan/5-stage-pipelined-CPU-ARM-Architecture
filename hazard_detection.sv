@@ -1,0 +1,24 @@
+
+
+`timescale 1ns/10ps
+// Decide to stall the cpu for LDUR
+// rnID, rmID are just the instruction slices from the IF_ID register
+// controlZero is for the mux input into control to make all values 0
+module hazard_detection(memReadEx, rdEx, rnID, rmID, pcWrite, IF_IDWrite, controlZero);
+	input logic memReadEx;
+	input logic [4:0] rdEx, rnID, rmID;
+	output logic pcWrite, IF_IDWrite, controlZero;
+	
+	always_comb begin
+		if(memReadEx && ((rdEx == rnID) || (rdEx == rmID))) begin
+			pcWrite = 0;
+			IF_IDWrite = 0;
+			controlZero = 1;
+		end else begin
+			pcWrite = 1;
+			IF_IDWrite = 1;
+			controlZero = 0;
+		end
+	end
+endmodule
+			

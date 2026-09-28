@@ -1,0 +1,22 @@
+
+
+//module register_64Bit(dataIn, enable, reset, clk, dataOut);
+//	input logic [63:0] dataIn;
+//	input logic enable, reset, clk;
+//	output logic [63:0] dataOut;
+//	
+//	wire enableSynced;
+//	
+//	wire dataEnabled;
+//	
+//	
+//	
+//	genvar i;
+//	
+//	generate
+//		for (i = 0; i < 64; i++) begin
+//			D_FF enableSynced (.q(enableSynced), .d(enable), .reset, .clk);
+//			AND enableSignal (dataEnabled, dataIn[i], enableSynced);
+//			D_FF enableSynced (.q(dataOut[i]), .d(), .reset, .clk);
+//			
+	

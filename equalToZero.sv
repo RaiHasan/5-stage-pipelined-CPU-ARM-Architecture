@@ -1,0 +1,30 @@
+
+
+`timescale 1ns/10ps
+module equalToZero(dataIn, zeroCheck);
+	input [63:0] dataIn;
+	output zeroCheck;
+	
+	logic [15:0] zeroCheckVal;
+	logic [3:0] andOut;
+	
+	//took from ALU
+	
+	//Zero check
+	genvar j;
+	generate
+		for (j = 0; j < 16; j++) begin : norLoop
+			nor #(0.05) norGate (zeroCheckVal[j], dataIn[4*j+3], dataIn[4*j+2], dataIn[4*j+1], dataIn[4*j]);
+		end
+	endgenerate 
+	
+	// and check to carry the signals
+	genvar k;
+	generate
+		for (k = 0; k < 4; k++) begin : andLoop
+			and #(0.05) andGate (andOut[k], zeroCheckVal[4*k+3],  zeroCheckVal[4*k+2],  zeroCheckVal[4*k+1], zeroCheckVal[4*k]);
+		end
+	endgenerate 
+	
+	and #(0.05) finalGate (zeroCheck, andOut[3], andOut[2], andOut[1], andOut[0]);
+endmodule 
